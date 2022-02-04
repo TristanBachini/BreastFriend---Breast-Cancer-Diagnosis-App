@@ -1,1 +1,1 @@
-web: gunicorn UP_Marketplace.wsgi.py --log-file -
+web: gunicorn UP_Marketplace.wsgi --log-file -
