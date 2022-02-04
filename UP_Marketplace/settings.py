@@ -79,10 +79,10 @@ WSGI_APPLICATION = 'UP_Marketplace.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ['DATABASE_ENGINE'],
-        'NAME': os.environ['DATABASE_MARKETPLACE'],
-        'USER': os.environ['DATABASE_USER'],
-        'PASSWORD': os.environ['DATABASE_PASSWORD'],
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'Marketplace',
+        'USER': 'root',
+        'PASSWORD': 'Iamtheking27',
         'PORT': 3306,
         'HOST': '127.0.0.1',
     }
