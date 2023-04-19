@@ -1,0 +1,37 @@
+{% extends 'predict/homepage.html' %}
+{% block content %}
+
+<br>
+<center>
+<img src="data:image/jpg;base64,{{image64}}" width="800" height="400">
+<table>
+    <tr>
+        <td>
+            Prediction:
+        </td>
+        <td>
+            {{pred}}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Accuracy:
+        </td>
+        <td>
+            {{accuracy}}
+        </td>
+    </tr>
+</table>
+</center>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
