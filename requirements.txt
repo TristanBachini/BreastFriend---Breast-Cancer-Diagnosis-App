@@ -13,3 +13,8 @@ six==1.16.0
 sqlparse==0.4.2
 tzdata==2021.5
 whitenoise==5.3.0
+matplotlib
+lime
+base64
+io
+sklearn
