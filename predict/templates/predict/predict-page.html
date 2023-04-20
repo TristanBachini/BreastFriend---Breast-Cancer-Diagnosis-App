@@ -1,0 +1,367 @@
+{% extends 'predict/homepage.html' %}
+{% block content %}
+
+<form action="" method="post">
+    {% csrf_token %}
+    <center>
+      <div class="card">
+        <div class="card-body">
+          <h3 style="margin-bottom: 10%">Enter required values:</h3>
+          <div class="row">
+            <div class="col">
+              <input
+                type="number"
+                step="any"
+                name="radiusm"
+                class="form-control"
+                id="floatingInput"
+                placeholder="Radius Mean"
+                required
+              />
+            </div>
+            <div class="col">
+                <input
+                  type="number"
+                  step="any"
+                  name="radiusse"
+                  class="form-control"
+                  id="floatingPassword"
+                  placeholder="Radius Standard Error"
+                  required
+                />
+            </div>
+            <div class="col">
+                <input
+                  type="number"
+                  step="any"
+                  name="radiusl"
+                  class="form-control"
+                  id="floatingPassword"
+                  placeholder="Radius Largest"
+                  required
+                />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <input
+                type="number"
+                step="any"
+                name="texturem"
+                class="form-control"
+                id="floatingInput"
+                placeholder="Texture Mean"
+                required
+              />
+            </div>
+            <div class="col">
+                <input
+                  type="number"
+                  step="any"
+                  name="texturese"
+                  class="form-control"
+                  id="floatingPassword"
+                  placeholder="Texture Standard Error"
+                  required
+                />
+            </div>
+            <div class="col">
+                <input
+                  type="number"
+                  step="any"
+                  name="texturel"
+                  class="form-control"
+                  id="floatingPassword"
+                  placeholder="Texture Largest"
+                  required
+                />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <input
+                type="number"
+                step="any"
+                name="perimeterm"
+                class="form-control"
+                id="floatingInput"
+                placeholder="Perimeter Mean"
+                required
+              />
+            </div>
+            <div class="col">
+                <input
+                  type="number"
+                  step="any"
+                  name="perimeterse"
+                  class="form-control"
+                  id="floatingPassword"
+                  placeholder="Perimeter Standard Error"
+                  required
+                />
+            </div>
+            <div class="col">
+                <input
+                  type="number"
+                  step="any"
+                  name="perimeterl"
+                  class="form-control"
+                  id="floatingPassword"
+                  placeholder="Perimeter Largest"
+                  required
+                />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <input
+                type="number"
+                step="any"
+                name="aream"
+                class="form-control"
+                id="floatingInput"
+                placeholder="Area Mean"
+                required
+              />
+            </div>
+            <div class="col">
+                <input
+                  type="number"
+                  step="any"
+                  name="arease"
+                  class="form-control"
+                  id="floatingPassword"
+                  placeholder="Area Standard Error"
+                  required
+                />
+            </div>
+            <div class="col">
+                <input
+                  type="number"
+                  step="any"
+                  name="areal"
+                  class="form-control"
+                  id="floatingPassword"
+                  placeholder="Area Largest"
+                  required
+                />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <input
+                type="number"
+                step="any"
+                name="smoothnessm"
+                class="form-control"
+                id="floatingInput"
+                placeholder="Smoothness Mean"
+                required
+              />
+            </div>
+            <div class="col">
+                <input
+                  type="number"
+                  step="any"
+                  name="smoothnessse"
+                  class="form-control"
+                  id="floatingPassword"
+                  placeholder="Smoothness Standard Error"
+                  required
+                />
+            </div>
+            <div class="col">
+                <input
+                  type="number"
+                  step="any"
+                  name="smoothnessl"
+                  class="form-control"
+                  id="floatingPassword"
+                  placeholder="Smoothness Largest"
+                  required
+                />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <input
+                type="number"
+                step="any"
+                name="compactnessm"
+                class="form-control"
+                id="floatingInput"
+                placeholder="Compactness Mean"
+                required
+              />
+            </div>
+            <div class="col">
+                <input
+                  type="number"
+                  step="any"
+                  name="compactnessse"
+                  class="form-control"
+                  id="floatingPassword"
+                  placeholder="Compactness Standard Error"
+                  required
+                />
+            </div>
+            <div class="col">
+                <input
+                  type="number"
+                  step="any"
+                  name="compactnessl"
+                  class="form-control"
+                  id="floatingPassword"
+                  placeholder="Compactness Largest"
+                  required
+                />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <input
+                type="number"
+                step="any"
+                name="concavitym"
+                class="form-control"
+                id="floatingInput"
+                placeholder="Concavity Mean"
+                required
+              />
+            </div>
+            <div class="col">
+                <input
+                  type="number"
+                  step="any"
+                  name="concavityse"
+                  class="form-control"
+                  id="floatingPassword"
+                  placeholder="Concavity Standard Error"
+                  required
+                />
+            </div>
+            <div class="col">
+                <input
+                  type="number"
+                  step="any"
+                  name="concavityl"
+                  class="form-control"
+                  id="floatingPassword"
+                  placeholder="Concavity Largest"
+                  required
+                />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <input
+                type="number"
+                step="any"
+                name="concavepointsm"
+                class="form-control"
+                id="floatingInput"
+                placeholder="Concave Points Mean"
+                required
+              />
+            </div>
+            <div class="col">
+                <input
+                  type="number"
+                  step="any"
+                  name="concavepointsse"
+                  class="form-control"
+                  id="floatingPassword"
+                  placeholder="Concave Points Standard Error"
+                  required
+                />
+            </div>
+            <div class="col">
+                <input
+                  type="number"
+                  step="any"
+                  name="concavepointsl"
+                  class="form-control"
+                  id="floatingPassword"
+                  placeholder="Concave Points Largest"
+                  required
+                />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <input
+                type="number"
+                step="any"
+                name="symmetrym"
+                class="form-control"
+                id="floatingInput"
+                placeholder="Symmetry Mean"
+                required
+              />
+            </div>
+            <div class="col">
+                <input
+                  type="number"
+                  step="any"
+                  name="symmetryse"
+                  class="form-control"
+                  id="floatingPassword"
+                  placeholder="Symmetry Standard Error"
+                  required
+                />
+            </div>
+            <div class="col">
+                <input
+                  type="number"
+                  step="any"
+                  name="symmetryl"
+                  class="form-control"
+                  id="floatingPassword"
+                  placeholder="Symmetry Largest"
+                  required
+                />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <input
+                type="number"
+                step="any"
+                name="fractaldimensionm"
+                class="form-control"
+                id="floatingInput"
+                placeholder="Fractal Dimension Mean"
+                required
+              />
+            </div>
+            <div class="col">
+                <input
+                  type="number"
+                  step="any"
+                  name="fractaldimensionse"
+                  class="form-control"
+                  id="floatingPassword"
+                  placeholder="Fractal Dimension Standard Error"
+                  required
+                />
+            </div>
+            <div class="col">
+                <input
+                  type="number"
+                  step="any"
+                  name="fractaldimensionl"
+                  class="form-control"
+                  id="floatingPassword"
+                  placeholder="Fractal Dimension Largest"
+                  required
+                />
+            </div>
+          </div>
+          <div class="col">
+            <button class="btn btn-custom" type="submit">Predict!</button>
+          </div>
+        </div>
+      </div>
+    </center>
+  </form>
+{% endblock %}
