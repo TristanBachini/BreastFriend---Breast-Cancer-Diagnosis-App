@@ -128,6 +128,7 @@ def predict_page(request):
         plt.ylabel('', fontsize=16)
         img_buf = io.BytesIO()
         plt.savefig(img_buf, format='jpg',bbox_inches = 'tight')
+        plt.close()
 
         im = Image.open(img_buf)
         test = Image.open("predict/data/zhong.jpg")
