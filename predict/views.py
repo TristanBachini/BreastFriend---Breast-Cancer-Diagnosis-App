@@ -76,7 +76,7 @@ def predict_page(request):
                                                         feature_names=dataset.columns,
                                                         verbose=True, mode='classification')
 
-        ttts = datapoint.astype(np.float)
+        ttts = datapoint.astype(float)
         dataset = dataset.drop(['id','diagnosis_M'],axis=1)
         newerdf=pd.DataFrame(ttts.reshape(1,-1), columns=dataset.columns)
         transformed = sc.transform(newerdf)
