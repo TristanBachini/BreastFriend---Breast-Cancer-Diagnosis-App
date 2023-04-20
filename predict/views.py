@@ -119,7 +119,6 @@ def predict_page(request):
         import io
         from PIL import Image
         import matplotlib.pyplot as plt
-        plt.use('SVG')
         plt.rcParams["figure.figsize"] = [100, 50]
         plt.rcParams["figure.autolayout"] = True
 
