@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'login_app',
+    'navbar',
 ]
 
 MIDDLEWARE = [
@@ -75,6 +76,18 @@ WSGI_APPLICATION = 'UP_Marketplace.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'Marketplace',
+        'USER': 'root',
+        'PASSWORD': 'Iamtheking27',
+        'PORT': 3306,
+        'HOST': '127.0.0.1',
+    }
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
