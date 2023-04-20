@@ -110,16 +110,16 @@ def predict_page(request):
 
         exp_lime = explainer_lime.explain_instance(
             transformed[0], rfc.predict_proba, num_features=k)
-        print("ITO")
-        print(type(exp_lime))
         
         plot = exp_lime.as_pyplot_figure()
 
-
+        
+        
+        
         import io
         from PIL import Image
         import matplotlib.pyplot as plt
-
+        plt.use('SVG')
         plt.rcParams["figure.figsize"] = [100, 50]
         plt.rcParams["figure.autolayout"] = True
 
@@ -133,8 +133,6 @@ def predict_page(request):
         im = Image.open(img_buf)
         test = Image.open("predict/data/zhong.jpg")
 
-        print(type(im))
-        print(type(test))
         image64 = image_to_base64(im)
         test64 = image_to_base64(test)
         
