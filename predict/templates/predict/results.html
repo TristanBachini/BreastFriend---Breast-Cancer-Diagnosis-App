@@ -1,6 +1,7 @@
 {% extends 'predict/homepage.html' %}
 {% block content %}
 
+<!--
 <br>
 <center>
 <img src="data:image/jpg;base64,{{image64}}" width="800" height="400">
@@ -23,6 +24,14 @@
     </tr>
 </table>
 </center>
+-->
+<center>
+{% autoescape off %}
+{{results}}
+{% endautoescape %}
+</center>
+
+
 
 
 

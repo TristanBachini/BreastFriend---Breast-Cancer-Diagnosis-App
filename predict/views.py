@@ -111,36 +111,39 @@ def predict_page(request):
         exp_lime = explainer_lime.explain_instance(
             transformed[0], rfc.predict_proba, num_features=k)
         
-        plot = exp_lime.as_pyplot_figure()
+        results = exp_lime.as_html(labels=None, predict_proba=True, show_predicted_value=True)
+        
+        #plot = exp_lime.as_pyplot_figure()
 
         
         
         
-        import io
-        from PIL import Image
-        import matplotlib.pyplot as plt
-        plt.rcParams["figure.figsize"] = [100, 50]
-        plt.rcParams["figure.autolayout"] = True
+        #import io
+        #from PIL import Image
+        #import matplotlib.pyplot as plt
+        #plt.rcParams["figure.figsize"] = [100, 50]
+        #plt.rcParams["figure.autolayout"] = True
 
-        plt.figure(plot)
-        plt.xlabel('', fontsize=18)
-        plt.ylabel('', fontsize=16)
-        img_buf = io.BytesIO()
-        plt.savefig(img_buf, format='jpg',bbox_inches = 'tight')
-        plt.close()
+        #plt.figure(plot)
+        #plt.xlabel('', fontsize=18)
+        #plt.ylabel('', fontsize=16)
+        #img_buf = io.BytesIO()
+        #plt.savefig(img_buf, format='jpg',bbox_inches = 'tight')
+        #plt.close()
 
-        im = Image.open(img_buf)
-        test = Image.open("predict/data/zhong.jpg")
+        #im = Image.open(img_buf)
+        #test = Image.open("predict/data/zhong.jpg")
 
-        image64 = image_to_base64(im)
-        test64 = image_to_base64(test)
+        #image64 = image_to_base64(im)
+        #test64 = image_to_base64(test)
         
         if(pred[0]==0):
             pred = "Negative!"
         else:
             pred = "Positive!"
 
-        data = {'accuracy':accuracy,'image64':image64,'pred':pred,'test64':test64}
+        #data = {'accuracy':accuracy,'image64':image64,'pred':pred,'test64':test64}
+        data = {'accuracy':accuracy,'results':results}
 
         return render(request, 'predict/results.html', data)
 
