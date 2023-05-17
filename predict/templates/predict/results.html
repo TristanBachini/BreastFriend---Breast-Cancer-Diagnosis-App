@@ -1,9 +1,12 @@
 {% extends 'predict/homepage.html' %}
 {% block content %}
 
-<!--
-<br>
+
+
 <center>
+{% autoescape off %}
+{{results}}
+{% endautoescape %} 
 <img src="data:image/jpg;base64,{{image64}}" width="800" height="400">
 <table>
     <tr>
@@ -23,12 +26,27 @@
         </td>
     </tr>
 </table>
-</center>
--->
-<center>
-{% autoescape off %}
-{{results}}
-{% endautoescape %}
+
+
+
+<table>
+    {% for key, value in feat_imp.items %}
+    <tr>
+        <td>
+            The attribute {{key}} contributed
+            {% if value < 0 %}
+
+            {% widthratio value 1 -1 %}% towards the sample tissue being benign.
+
+            {% else %}
+
+            {{value}}% towards the sample tissue being malignant.
+
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
 </center>
 
 

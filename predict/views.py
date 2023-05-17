@@ -16,6 +16,14 @@ def image_to_base64(image):
     img_str = img_str.decode("utf-8")  # convert to str and cut b'' chars
     return img_str
 
+def Convert(tup, di):
+    for a, b in tup:
+        a = int(a)
+        di.setdefault(a,[]).append(b)
+    return di
+
+
+
 # Create your views here.
 def homepage(request):
     
@@ -30,33 +38,34 @@ def predict_page(request):
         dataset = pd.get_dummies(data = dataset, drop_first = True)
         dataset = dataset.drop(columns = 'Unnamed: 32')
 
+        df = pd.DataFrame(dataset)
+
         X = dataset.iloc[:,1:-1].values
         y = dataset.iloc[:,-1].values
-        ##feature scaling
-        print("Feature Scaling")
-        from sklearn.preprocessing import StandardScaler
-        sc = StandardScaler()
-        X_scaled = sc.fit_transform(X)
 
-        X_imbalanced = np.vstack((X_scaled[y == 1], X_scaled[y == 0][:30]))
-        y_imbalanced = np.hstack((y[y == 1], y[y == 0][:30]))
+        X_scaled = X
+
+        X_imbalanced = np.vstack((X_scaled[y == 1], X_scaled[y == 0]))
+        y_imbalanced = np.hstack((y[y == 1], y[y == 0]))
+
+
+
         from sklearn.utils import resample
         #
         # Create oversampled training data set for minority class
         #
-        X_oversampled, y_oversampled = resample(X_imbalanced[y_imbalanced == 0],
-                                                y_imbalanced[y_imbalanced == 0],
+        X_oversampled, y_oversampled = resample(X_imbalanced[y_imbalanced == 1],
+                                                y_imbalanced[y_imbalanced == 1],
                                                 replace=True,
-                                                n_samples=X_imbalanced[y_imbalanced == 1].shape[0],
+                                                n_samples=X_imbalanced[y_imbalanced == 0].shape[0],
                                                 random_state=123)
         #
         # Append the oversampled minority class to training data and related labels
         #
-        X_balanced = np.vstack((X_scaled[y == 1], X_oversampled))
-        y_balanced = np.hstack((y[y == 1], y_oversampled))
-        
-        
-        print("Feature Scaling Then resampling")
+
+        X_balanced = np.vstack((X_scaled[y == 0], X_oversampled))
+        y_balanced = np.hstack((y[y == 0], y_oversampled))
+
         x_train,x_test,y_train,y_test = train_test_split(X_balanced,y_balanced, test_size = 0.25, random_state = 45)
 
         rfc = RandomForestClassifier()
@@ -69,8 +78,6 @@ def predict_page(request):
         auc = roc_auc_score(y_test, y_pred)
         results = pd.DataFrame([['RandomForestClassifier', acc, f1, precision, auc]],
                             columns = ['Model','Accuracy', 'F1', ' Precision', 'AUC'])
-        print(results)
-        print(y_pred)
 
         explainer_lime = lime.lime_tabular.LimeTabularExplainer(x_train,
                                                         feature_names=dataset.columns,
@@ -79,9 +86,8 @@ def predict_page(request):
         ttts = datapoint.astype(float)
         dataset = dataset.drop(['id','diagnosis_M'],axis=1)
         newerdf=pd.DataFrame(ttts.reshape(1,-1), columns=dataset.columns)
-        transformed = sc.transform(newerdf)
 
-        pred = rfc.predict(transformed)
+        pred = rfc.predict(newerdf)
         accuracy = acc*100
         #pred is the value predicted !
         i = 25
@@ -100,7 +106,6 @@ def predict_page(request):
  
         # Number denoting the top features
         k = 10
-        print(type(x_test[i]))
         # Calling the explain_instance method by passing in the:
         #    1) ith test vector
         #    2) prediction function used by our prediction model('reg' in this case)
@@ -108,42 +113,67 @@ def predict_page(request):
 #        exp_lime = explainer_lime.explain_instance(
 #            x_test[i], rfc.predict_proba, num_features=k)
 
+        # Retrieve the scaling parameters
+
+        
+        #exp_lime = explainer_lime.explain_instance(
+        #    transformed[0], rfc.predict_proba, num_features=k)
         exp_lime = explainer_lime.explain_instance(
-            transformed[0], rfc.predict_proba, num_features=k)
-        
+            ttts, rfc.predict_proba, num_features=k)
+        i = 0
+        lime_model = exp_lime.local_exp
+        dictionary = {}
+        for _,value in lime_model.items():
+            dictionary = Convert(value,dictionary)
+
+        columns = list(dataset.columns)
+
+        feat_imp =  {}
+        for i in range(0,len(columns)):
+            for key in dictionary:
+                if i == key:
+                    value = round(dictionary[i][0]*100)
+                    feat_imp.update({columns[i-1]:value})
+    
         results = exp_lime.as_html(labels=None, predict_proba=True, show_predicted_value=True)
-        
-        #plot = exp_lime.as_pyplot_figure()
+       
+        plot = exp_lime.as_pyplot_figure()
+
+
+
 
         
         
         
-        #import io
-        #from PIL import Image
-        #import matplotlib.pyplot as plt
-        #plt.rcParams["figure.figsize"] = [100, 50]
-        #plt.rcParams["figure.autolayout"] = True
+        import io
+        from PIL import Image
+        import matplotlib.pyplot as plt
+        plt.rcParams["figure.figsize"] = [100, 50]
+        plt.rcParams["figure.autolayout"] = True
 
-        #plt.figure(plot)
-        #plt.xlabel('', fontsize=18)
-        #plt.ylabel('', fontsize=16)
-        #img_buf = io.BytesIO()
-        #plt.savefig(img_buf, format='jpg',bbox_inches = 'tight')
-        #plt.close()
-
-        #im = Image.open(img_buf)
-        #test = Image.open("predict/data/zhong.jpg")
-
-        #image64 = image_to_base64(im)
-        #test64 = image_to_base64(test)
+        plt.figure(plot)
+        plt.xlabel('', fontsize=18)
+        plt.ylabel('', fontsize=16)
+        plt.rcParams['font.size'] = 18
+        img_buf = io.BytesIO()
+        plt.savefig(img_buf, format='jpg',bbox_inches = 'tight')       
         
+        im = Image.open(img_buf)
+
+
+        image64 = image_to_base64(im)
+
+        img_buf = None
+        plt.clf()
+        plt.close()
+
         if(pred[0]==0):
             pred = "Negative!"
         else:
             pred = "Positive!"
 
-        #data = {'accuracy':accuracy,'image64':image64,'pred':pred,'test64':test64}
-        data = {'accuracy':accuracy,'results':results}
+        data = {'accuracy':accuracy,'results':results,'image64':image64,'pred':pred,'feat_imp':feat_imp}
+#        data = {'accuracy':accuracy,'results':results,'pred':pred,'feat_imp':feat_imp}
 
         return render(request, 'predict/results.html', data)
 
