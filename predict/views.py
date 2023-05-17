@@ -9,11 +9,13 @@ import lime.lime_tabular
 import base64
 from io import BytesIO
 
+
 def image_to_base64(image):
     buff = BytesIO()
     image.save(buff, format="PNG")
     img_str = base64.b64encode(buff.getvalue())
     img_str = img_str.decode("utf-8")  # convert to str and cut b'' chars
+    buff.close()
     return img_str
 
 def Convert(tup, di):
@@ -139,7 +141,7 @@ def predict_page(request):
        
         plot = exp_lime.as_pyplot_figure()
 
-
+    
 
 
         
@@ -148,6 +150,8 @@ def predict_page(request):
         import io
         from PIL import Image
         import matplotlib.pyplot as plt
+        from django.core.cache import cache
+        from django.http import HttpResponse
         plt.rcParams["figure.figsize"] = [100, 50]
         plt.rcParams["figure.autolayout"] = True
 
@@ -156,25 +160,26 @@ def predict_page(request):
         plt.ylabel('', fontsize=16)
         plt.rcParams['font.size'] = 18
         img_buf = io.BytesIO()
-        plt.savefig(img_buf, format='jpg',bbox_inches = 'tight')       
+        plt.savefig(img_buf, format='png',bbox_inches = 'tight')   
         
         im = Image.open(img_buf)
 
 
         image64 = image_to_base64(im)
 
-        img_buf = None
-        plt.clf()
-        plt.close()
+        img_buf.seek(0)
+
+        response = HttpResponse(content_type='image/png')
+        response.write(img_buf.getvalue())
 
         if(pred[0]==0):
             pred = "Negative!"
         else:
             pred = "Positive!"
 
-        data = {'accuracy':accuracy,'results':results,'image64':image64,'pred':pred,'feat_imp':feat_imp}
+        data = {'accuracy':accuracy,'results':results,'image64':image64,'pred':pred,'feat_imp':feat_imp,'response':response}
 #        data = {'accuracy':accuracy,'results':results,'pred':pred,'feat_imp':feat_imp}
-
+        cache.clear()
         return render(request, 'predict/results.html', data)
 
 

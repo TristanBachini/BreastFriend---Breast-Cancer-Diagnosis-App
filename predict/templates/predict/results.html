@@ -8,6 +8,9 @@
 {{results}}
 {% endautoescape %} 
 <img src="data:image/jpg;base64,{{image64}}" width="800" height="400">
+{% autoescape off %}
+{{response}}
+{% endautoescape %} 
 <table>
     <tr>
         <td>
