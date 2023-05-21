@@ -7,50 +7,55 @@
 {% autoescape off %}
 {{results}}
 {% endautoescape %} 
-<img src="data:image/jpg;base64,{{image64}}" width="800" height="400">
-{% autoescape off %}
-{{response}}
-{% endautoescape %} 
-<table>
-    <tr>
-        <td>
-            Prediction:
-        </td>
-        <td>
-            {{pred}}
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Accuracy:
-        </td>
-        <td>
-            {{accuracy}}
-        </td>
-    </tr>
-</table>
 
+<div>
+    <img src="data:image/jpg;base64,{{image64}}" width="800" height="400">
+    <table>
+        <tr>
+            <td>
+                Prediction:
+            </td>
+            <td>
+                {{pred}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Accuracy:
+            </td>
+            <td>
+                {{accuracy}}
+            </td>
+        </tr>
+    </table>
+    </div>
 
-
-<table>
-    {% for key, value in feat_imp.items %}
-    <tr>
-        <td>
-            The attribute {{key}} contributed
-            {% if value < 0 %}
-
-            {% widthratio value 1 -1 %}% towards the sample tissue being benign.
-
-            {% else %}
-
-            {{value}}% towards the sample tissue being malignant.
-
-            {% endif %}
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+    <div>
+    <table>
+        {% for key, value in feat_imp.items %}
+        <tr>
+            <td>
+                {% if pred == 'Negative!' %}
+                    {% if value < 0 %}
+                    The attribute {{key}} contributed {% widthratio value 1 -1 %}% towards the sample tissue being <p style="font-weight: bold;">Benign</p>.
+                    {% endif %}
+                {% else %}
+                    {% if value >= 0 %}
+                    The attribute {{key}} contributed {{value}}% towards the sample tissue being <p style="font-weight: bold;">Malignant</p>.
+                    {% endif %}
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
 </center>
+
+
+
+
+
+
 
 
 

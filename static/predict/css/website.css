@@ -1,0 +1,22 @@
+body{
+    background-size: 100%;
+}
+
+.cright{
+    position: fixed;
+    right: 0px; bottom: 0px;
+}
+
+.title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Flow Circular', cursive;
+    font-family: 'Jost', sans-serif;
+  }
+
+.buttons{
+    text-align: center;
+}
+

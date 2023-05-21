@@ -1,6 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 import numpy as np
-import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
@@ -8,6 +7,7 @@ from sklearn.metrics import precision_score,accuracy_score,f1_score,roc_auc_scor
 import lime.lime_tabular
 import base64
 from io import BytesIO
+import random
 
 
 def image_to_base64(image):
@@ -28,7 +28,13 @@ def Convert(tup, di):
 
 # Create your views here.
 def homepage(request):
-    
+    from django.core.cache import cache
+    from django.contrib.sessions.backends.db import SessionStore
+    cache.clear()
+    random.seed(123)
+    np.random.seed(123)
+    session = SessionStore(session_key=request.session.session_key)
+    session.flush() 
     return render(request, 'predict/homepage.html')
 
 def predict_page(request):
@@ -152,22 +158,22 @@ def predict_page(request):
         import matplotlib.pyplot as plt
         from django.core.cache import cache
         from django.http import HttpResponse
-        plt.rcParams["figure.figsize"] = [100, 50]
-        plt.rcParams["figure.autolayout"] = True
+#        plt.rcParams["figure.figsize"] = [100, 50]
+#        plt.rcParams["figure.autolayout"] = False
+#        Image.MAX_IMAGE_PIXELS = None
 
         plt.figure(plot)
         plt.xlabel('', fontsize=18)
         plt.ylabel('', fontsize=16)
-        plt.rcParams['font.size'] = 18
         img_buf = io.BytesIO()
         plt.savefig(img_buf, format='png',bbox_inches = 'tight')   
-        
         im = Image.open(img_buf)
+
 
 
         image64 = image_to_base64(im)
 
-        img_buf.seek(0)
+        
 
         response = HttpResponse(content_type='image/png')
         response.write(img_buf.getvalue())
