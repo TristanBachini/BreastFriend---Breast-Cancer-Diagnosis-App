@@ -190,3 +190,7 @@ def predict_page(request):
 
 
     return render(request, 'predict/predict-page.html')
+
+
+def about_us(request):
+    return render(request, 'predict/about-us.html')

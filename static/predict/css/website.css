@@ -9,14 +9,27 @@ body{
 
 .title {
     position: absolute;
-    top: 50%;
+    top: 80%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-family: 'Flow Circular', cursive;
     font-family: 'Jost', sans-serif;
+    margin-top: 1in;
   }
 
 .buttons{
     text-align: center;
 }
 
+.middle{
+    padding-left: 0.5in;
+    padding-right: 0.5in;
+}
+
+.card{
+    border: none;
+}
+
+.predict{
+    background: none;
+}

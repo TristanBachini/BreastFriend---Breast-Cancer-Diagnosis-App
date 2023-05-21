@@ -1,7 +1,8 @@
 {% extends 'predict/homepage.html' %}
 {% block content %}
+ <body class="predict">
 
-<form action="" method="post">
+  <form action="" method="post">
     {% csrf_token %}
     <center>
       <div class="card">
@@ -364,4 +365,5 @@
       </div>
     </center>
   </form>
+</body>
 {% endblock %}

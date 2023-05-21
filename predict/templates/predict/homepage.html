@@ -5,17 +5,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>BreastFriend</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'predict/css/website.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Flow+Circular&family=Jost:ital,wght@0,400;0,500;1,100&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/767e01c769.js" crossorigin="anonymous"></script>
   </head>
 <body background="{% static 'predict/images/61802.jpg' %}">
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Navbar</a>
+          <a class="navbar-brand" href="#">BreastFriend</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -28,7 +29,7 @@
                 <a class="nav-link" href="{%url 'predict-page'%}">Predict</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled">Disabled</a>
+                <a class="nav-link" href="{%url 'about-us'%}">About Us</a>
               </li>
             </ul>
           </div>
@@ -40,19 +41,69 @@
       <a  href="https://www.freepik.com/free-vector/health-care-science-medical-dna-background-banner_5129974.htm">Image by starline</a> on Freepik
     </div>
     <div class="title">
-      <p style="font-size: 60px; text-align: center;">NAVBAR</p>
+      <p style="font-size: 60px; text-align: center;">BreastFriend</p>
       <p style="text-align: center; font-size: 25px;"> Predicting breast cancer diagnosis based on Fine Needle Aspirate findings. </p>
       <div class="buttons ">
-        <button class="btn btn-primary btn-lg">Learn More</button>
-        <button class="btn btn-primary btn-lg">Predict</button>
+        <button  class="btn btn-primary btn-lg">Learn More</button>
+        <a href="{%url 'predict-page'%}"><button class="btn btn-primary btn-lg"> Predict</button></a>
       </div>
-      
+      <br>
+      <br>
+      <br>
+      <br>
+
+
+
+      <div class="row row-cols-1 row-cols-md-3 g-4" style="margin-bottom: 2in;">
+        <div class="col">
+          <div class="card h-100 bg-transparent border-dark mb3">
+            <img src="{% static 'predict/images/chart.png' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Explainability</h5>
+              <p class="card-text">Using the Local Interpretable Model-Agnostic Explanations (Lime) Python package, meaningful explanations were extracted
+                from predictions made on breast cancer diagnosis.
+              </p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100 bg-transparent border-dark mb-3">
+            <img src="{% static 'predict/images/bullseye.png' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Reliability</h5>
+              <p class="card-text">With a guaranteed accuracy and precision of over 97% towards diagnosing breast cancer from Fine Needle Aspiration results.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100 bg-transparent border-dark mb-3">
+            <img src="{% static 'predict/images/house.png' %}" class="card-img-top" alt="...">
+            <br>
+            <div class="card-body">
+              <h5 class="card-title">Simplicity</h5>
+              <p class="card-text"> A simple user interface that integrates a reliable machine learning model with meaningful explainability, catered towards doctors and radiologists.
+              </p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
     </div>
-    <br>
 
 
-    
-    
+
+
 
     {% endblock %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
