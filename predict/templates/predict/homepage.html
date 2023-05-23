@@ -54,10 +54,13 @@
 
 
 
-      <div class="row row-cols-1 row-cols-md-3 g-4" style="margin-bottom: 2in;">
+      <div class="row row-cols-1 row-cols-md-3 g-4" style="margin-bottom: 2in; text-align: center;">
         <div class="col">
-          <div class="card h-100 bg-transparent border-dark mb3">
-            <img src="{% static 'predict/images/chart.png' %}" class="card-img-top" alt="...">
+          <div class="card h-100 bg-transparent border-dark mb3" >
+            <div >
+              <img style="width: 3in; text-align: center;" src="{% static 'predict/images/chart.png' %}" class="card-img-top" alt="...">
+            </div>
+            
             <div class="card-body">
               <h5 class="card-title">Explainability</h5>
               <p class="card-text">Using the Local Interpretable Model-Agnostic Explanations (Lime) Python package, meaningful explanations were extracted
@@ -71,7 +74,10 @@
         </div>
         <div class="col">
           <div class="card h-100 bg-transparent border-dark mb-3">
-            <img src="{% static 'predict/images/bullseye.png' %}" class="card-img-top" alt="...">
+            <div>
+              <img style="width: 3in; text-align: center;" src="{% static 'predict/images/bullseye.png' %}" class="card-img-top" alt="...">
+            </div>
+            
             <div class="card-body">
               <h5 class="card-title">Reliability</h5>
               <p class="card-text">With a guaranteed accuracy and precision of over 97% towards diagnosing breast cancer from Fine Needle Aspiration results.</p>
@@ -83,7 +89,10 @@
         </div>
         <div class="col">
           <div class="card h-100 bg-transparent border-dark mb-3">
-            <img src="{% static 'predict/images/house.png' %}" class="card-img-top" alt="...">
+            <div>
+              <img style="width: 3in; text-align: center;" src="{% static 'predict/images/house.png' %}" class="card-img-top" alt="...">
+            </div>
+            
             <br>
             <div class="card-body">
               <h5 class="card-title">Simplicity</h5>

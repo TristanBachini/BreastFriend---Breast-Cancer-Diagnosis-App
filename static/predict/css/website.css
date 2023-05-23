@@ -9,9 +9,7 @@ body{
 
 .title {
     position: absolute;
-    top: 80%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 10%;
     font-family: 'Flow Circular', cursive;
     font-family: 'Jost', sans-serif;
     margin-top: 1in;

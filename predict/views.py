@@ -44,7 +44,7 @@ def predict_page(request):
                               request.POST.get('radiusl'),request.POST.get('texturel'),request.POST.get('perimeterl'),request.POST.get('areal'),request.POST.get('smoothnessl'),request.POST.get('compactnessl'),request.POST.get('concavityl'),request.POST.get('concavepointsl'),request.POST.get('symmetryl'),request.POST.get('fractaldimensionl'),])
         dataset = pd.read_csv("predict/data/data.csv")
         dataset = pd.get_dummies(data = dataset, drop_first = True)
-        dataset = dataset.drop(columns = 'Unnamed: 32')
+        dataset = dataset.drop(columns = 'Unnamed: 32') 
 
         X = dataset.iloc[:,1:-1].values
         y = dataset.iloc[:,-1].values
