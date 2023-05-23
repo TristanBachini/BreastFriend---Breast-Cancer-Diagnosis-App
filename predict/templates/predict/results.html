@@ -37,11 +37,11 @@
             <td>
                 {% if pred == 'Negative!' %}
                     {% if value < 0 %}
-                    The attribute {{key}} contributed {% widthratio value 1 -1 %}% towards the sample tissue being <p style="font-weight: bold;">Benign</p>.
+                    The attribute {{key}} contributed {% widthratio value 1 -1 %}% towards the sample tissue being <p style="font-weight: bold;">Benign</p>
                     {% endif %}
                 {% else %}
                     {% if value >= 0 %}
-                    The attribute {{key}} contributed {{value}}% towards the sample tissue being <p style="font-weight: bold;">Malignant</p>.
+                    The attribute {{key}} contributed {{value}}% towards the sample tissue being <p style="font-weight: bold;">Malignant</p>
                     {% endif %}
                 {% endif %}
             </td>

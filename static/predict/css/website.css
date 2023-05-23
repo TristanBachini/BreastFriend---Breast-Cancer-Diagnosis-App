@@ -15,10 +15,19 @@ body{
     font-family: 'Flow Circular', cursive;
     font-family: 'Jost', sans-serif;
     margin-top: 1in;
-  }
+}
+
+.about-us-grid{
+    top:30%;
+    text-align: center;
+    
+}
+
+
 
 .buttons{
     text-align: center;
+    margin-top: 0.5in;
 }
 
 .middle{
@@ -32,4 +41,8 @@ body{
 
 .predict{
     background: none;
+}
+
+.about-us-row{
+    margin-top: 0.5in;
 }

@@ -46,8 +46,6 @@ def predict_page(request):
         dataset = pd.get_dummies(data = dataset, drop_first = True)
         dataset = dataset.drop(columns = 'Unnamed: 32')
 
-        df = pd.DataFrame(dataset)
-
         X = dataset.iloc[:,1:-1].values
         y = dataset.iloc[:,-1].values
 
