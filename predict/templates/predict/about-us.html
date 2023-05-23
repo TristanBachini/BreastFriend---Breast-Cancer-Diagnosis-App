@@ -2,93 +2,105 @@
 {% load static %}
 {% block content %}
 
-
-<div class="container about-us-grid ">
-    <div class="row about-us-row">
-        <div class="col ">
-        1
-        </div>
-      <div class="col">
-        <img  src="{% static 'predict/images/predict.png' %}">
-      </div>
-      <div class="col ">
-        This figure represents the machine learning model's confidence towards whether a datapoint is benign (blue) or malignant (orange). This is influenced by 
-        the feature importance presented in another figure. In this specific example, the model is 96% confident in predicting that the datapoint is malignant.
-      </div>
-    </div>
-    <div class="row about-us-row">
-        <div class="col ">
-            2
-        </div>
-        <div class="col">
-            <img style="height: 2in;" src="{% static 'predict/images/importance.png' %}">
-        </div>
-        <div class="col">
-            This figure represents the top 10 features that had the most significant impact in terms of predicting whether a datapoint is benign or malignant. In other
-            words, this represents the feature importance of the top 10 features. How is is interpreted is, for the 3rd row in the figure for example, because the input 
-            value for concavity worst is greater than 0.18, this attribute alone has a 9% impact towards why the model predicted malignant.
-        </div>
-    </div>
-      <div class="row about-us-row">
-        <div class="col ">
-            3
+<div class="container" style="background-color: white; border-radius: 100px;">
+    <div class="top container-md about-us-text">Breastfriend is a machine learning web application that utilizes the Wisconsin Breast Cancer Dataset, of which details are available <a 
+        href="https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data">in this link</a>. 4 machine learning models, namely Random Forest, Logistic Regression, K-Nearest Neighbors, 
+        and Support Vector Machine, were tested on different pre-processing techniques, which generated 40 different configurations which were compared with one another, to find which
+        model performed best in terms of its predicting power, and its suitability with the lime python package, that is used to generate meaningful explanations.</div>
+        
+        <div class="container-md about-us-text">Below are the different components that will be encountered while using this web application, and instructions on how they are handled 
+            or interpreted.</div>
+        
+        
+        
+        <div class="container about-us-grid ">
+            <div class="row about-us-row">
+                <div class="col ">
+                1
+                </div>
+              <div class="col">
+                <img  src="{% static 'predict/images/predict.png' %}">
+              </div>
+              <div class="col ">
+                This figure represents the machine learning model's confidence towards whether a datapoint is benign (blue) or malignant (orange). This is influenced by 
+                the feature importance presented in another figure. In this specific example, the model is 96% confident in predicting that the datapoint is malignant.
+              </div>
             </div>
-        <div class="col">
-            <img style="height: 2in;" src="{% static 'predict/images/values.png' %}">
-        </div>
-        <div  class="col">
-            This figure displays the respective input values of the top 10 most significant features, and its color denotes whether this attribute contributed towards the 
-            datapoint being benign or malignant.
-        </div>
-      </div>
-      <div class="row about-us-row">
-        <div class="col ">
-            4
+            <div class="row about-us-row">
+                <div class="col ">
+                    2
+                </div>
+                <div class="col">
+                    <img style="height: 2in;" src="{% static 'predict/images/importance.png' %}">
+                </div>
+                <div class="col">
+                    This figure represents the top 10 features that had the most significant impact in terms of predicting whether a datapoint is benign or malignant. In other
+                    words, this represents the feature importance of the top 10 features. How is is interpreted is, for the 3rd row in the figure for example, because the input 
+                    value for concavity worst is greater than 0.18, this attribute alone has a 9% impact towards why the model predicted malignant.
+                </div>
             </div>
-        <div class="col">
-            <img style="width: 4in;" src="{% static 'predict/images/lime.png' %}">
-        </div>
-        <div  class="col">
-            This figure represents a more detailed version, where all values and attributes in the y axis is present, of the previous figure on feature importance. In this 
-            figure alone, a negative red value denotes benignity, whereas a positive green value denotes malignance.
-        </div>
-      </div>
-      <div class="row about-us-row">
-        <div class="col ">
-            5
-            </div>
-        <div class="col">
-            <img src="{% static 'predict/images/diagnosis.png' %}">
-        </div>
-        <div class="col">
-            This text gives the final predicted class of the model, as well as the real-time accuracy that the model exhibited from the testing set in the machine learning
-            process.
-        </div>
-      </div>
-      <div class="row about-us-row">
-        <div class="col ">
-            6
-            </div>
-        <div class="col">
-            <img style="width: 4in;"    src="{% static 'predict/images/textexplanation.png' %}">
-        </div>
-        <div class="col">
-            This is an explanation, in text, of the attributes, and their significance towards the conclusion that the model had predicted-- if the model predicted that a 
-            datapoint is negative for cancer, then it only gives an explanation for the attributes that the model deems to have contributed towards the benignity of a datapoint.
-        </div>
-      </div>
-      <div class="row about-us-row">
-        <div class="col ">
-            7
-            </div>
-        <div class="col">
-            <img style="width: 4in;" src="{% static 'predict/images/inputs.png' %}">
-        </div>
-        <div class="col">
-            This is the input page, where 30 of the required inputs, that are values extracted from the digitized image of a breast tissue sample, taken from a FNA test, are applied.
-        </div>
-      </div>
-  </div>
+              <div class="row about-us-row">
+                <div class="col ">
+                    3
+                    </div>
+                <div class="col">
+                    <img style="height: 2in;" src="{% static 'predict/images/values.png' %}">
+                </div>
+                <div  class="col">
+                    This figure displays the respective input values of the top 10 most significant features, and its color denotes whether this attribute contributed towards the 
+                    datapoint being benign or malignant.
+                </div>
+              </div>
+              <div class="row about-us-row">
+                <div class="col ">
+                    4
+                    </div>
+                <div class="col">
+                    <img style="width: 4in;" src="{% static 'predict/images/lime.png' %}">
+                </div>
+                <div  class="col">
+                    This figure represents a more detailed version, where all values and attributes in the y axis is present, of the previous figure on feature importance. In this 
+                    figure alone, a negative red value denotes benignity, whereas a positive green value denotes malignance.
+                </div>
+              </div>
+              <div class="row about-us-row">
+                <div class="col ">
+                    5
+                    </div>
+                <div class="col">
+                    <img src="{% static 'predict/images/diagnosis.png' %}">
+                </div>
+                <div class="col">
+                    This text gives the final predicted class of the model, as well as the real-time accuracy that the model exhibited from the testing set in the machine learning
+                    process.
+                </div>
+              </div>
+              <div class="row about-us-row">
+                <div class="col ">
+                    6
+                    </div>
+                <div class="col">
+                    <img style="width: 4in;"    src="{% static 'predict/images/textexplanation.png' %}">
+                </div>
+                <div class="col">
+                    This is an explanation, in text, of the attributes, and their significance towards the conclusion that the model had predicted-- if the model predicted that a 
+                    datapoint is negative for cancer, then it only gives an explanation for the attributes that the model deems to have contributed towards the benignity of a datapoint.
+                </div>
+              </div>
+              <div class="row about-us-row bottom">
+                <div class="col ">
+                    7
+                    </div>
+                <div class="col">
+                    <img style="width: 4in;" src="{% static 'predict/images/inputs.png' %}">
+                </div>
+                <div class="col">
+                    This is the input page, where 30 of the required inputs, that are values extracted from the digitized image of a breast tissue sample, taken from a FNA test, are applied.
+                </div>
+              </div>
+          </div>
+        
+</div>
 
 
 

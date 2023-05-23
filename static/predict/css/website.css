@@ -15,6 +15,11 @@ body{
     margin-top: 1in;
 }
 
+.about-us-text{
+    margin-top: 1in;
+    text-align: justify;
+}
+
 .about-us-grid{
     top:30%;
     text-align: center;
@@ -43,4 +48,12 @@ body{
 
 .about-us-row{
     margin-top: 0.5in;
+}
+
+.top{
+    padding-top: 1in;
+}
+
+.bottom{
+    padding-bottom: 1in;
 }
