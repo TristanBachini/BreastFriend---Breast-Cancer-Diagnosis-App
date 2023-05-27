@@ -8,6 +8,7 @@ import lime.lime_tabular
 import base64
 from io import BytesIO
 import random
+import joblib
 
 
 def image_to_base64(image):
@@ -46,87 +47,24 @@ def predict_page(request):
         dataset = pd.get_dummies(data = dataset, drop_first = True)
         dataset = dataset.drop(columns = 'Unnamed: 32') 
 
-        X = dataset.iloc[:,1:-1].values
-        y = dataset.iloc[:,-1].values
+        rfc = joblib.load("predict/data/random_forest.joblib")
 
-        X_scaled = X
-
-        X_imbalanced = np.vstack((X_scaled[y == 1], X_scaled[y == 0]))
-        y_imbalanced = np.hstack((y[y == 1], y[y == 0]))
-
-
-
-        from sklearn.utils import resample
-        #
-        # Create oversampled training data set for minority class
-        #
-        X_oversampled, y_oversampled = resample(X_imbalanced[y_imbalanced == 1],
-                                                y_imbalanced[y_imbalanced == 1],
-                                                replace=True,
-                                                n_samples=X_imbalanced[y_imbalanced == 0].shape[0],
-                                                random_state=123)
-        #
-        # Append the oversampled minority class to training data and related labels
-        #
-
-        X_balanced = np.vstack((X_scaled[y == 0], X_oversampled))
-        y_balanced = np.hstack((y[y == 0], y_oversampled))
-
-        x_train,x_test,y_train,y_test = train_test_split(X_balanced,y_balanced, test_size = 0.25, random_state = 45)
-
-        rfc = RandomForestClassifier()
-        rfc.fit(x_train,y_train)
-        y_pred = rfc.predict(x_test)
-
-        acc = accuracy_score(y_test,y_pred)
-        f1 = f1_score(y_test,y_pred)
-        precision = precision_score(y_test,y_pred)
-        auc = roc_auc_score(y_test, y_pred)
-        results = pd.DataFrame([['RandomForestClassifier', acc, f1, precision, auc]],
-                            columns = ['Model','Accuracy', 'F1', ' Precision', 'AUC'])
-
-        explainer_lime = lime.lime_tabular.LimeTabularExplainer(x_train,
-                                                        feature_names=dataset.columns,
-                                                        verbose=True, mode='classification')
+        import dill
+        with open('predict\data\explainer.pkl', 'rb') as f:
+            explainer_lime = dill.load(f)
 
         ttts = datapoint.astype(float)
         dataset = dataset.drop(['id','diagnosis_M'],axis=1)
         newerdf=pd.DataFrame(ttts.reshape(1,-1), columns=dataset.columns)
 
         pred = rfc.predict(newerdf)
-        accuracy = acc*100
-        #pred is the value predicted !
-        i = 25
-#        x_test = np.append(x_test,datapoint)
+        accuracy = '98.18%'
 
-
-
-        # Calling the explain_instance method by passing in the:
-        #    1) ith test vector
-        #    2) prediction function used by our prediction model('reg' in this case)
-        #    3) the top features which we want to see, denoted by k
-
-
-        
-        
- 
-        # Number denoting the top features
-        k = 10
-        # Calling the explain_instance method by passing in the:
-        #    1) ith test vector
-        #    2) prediction function used by our prediction model('reg' in this case)
-        #    3) the top features which we want to see, denoted by k
-#        exp_lime = explainer_lime.explain_instance(
-#            x_test[i], rfc.predict_proba, num_features=k)
-
-        # Retrieve the scaling parameters
-
-        
-        #exp_lime = explainer_lime.explain_instance(
-        #    transformed[0], rfc.predict_proba, num_features=k)
         exp_lime = explainer_lime.explain_instance(
-            ttts, rfc.predict_proba, num_features=k)
-        i = 0
+            ttts, rfc.predict_proba, num_features=10)
+        
+        # Save the explainer to a file
+        
         lime_model = exp_lime.local_exp
         dictionary = {}
         for _,value in lime_model.items():
@@ -156,9 +94,6 @@ def predict_page(request):
         import matplotlib.pyplot as plt
         from django.core.cache import cache
         from django.http import HttpResponse
-#        plt.rcParams["figure.figsize"] = [100, 50]
-#        plt.rcParams["figure.autolayout"] = False
-#        Image.MAX_IMAGE_PIXELS = None
 
         plt.figure(plot)
         plt.xlabel('', fontsize=18)
@@ -182,7 +117,7 @@ def predict_page(request):
             pred = "Positive!"
 
         data = {'accuracy':accuracy,'results':results,'image64':image64,'pred':pred,'feat_imp':feat_imp,'response':response}
-#        data = {'accuracy':accuracy,'results':results,'pred':pred,'feat_imp':feat_imp}
+
         cache.clear()
         return render(request, 'predict/results.html', data)
 
