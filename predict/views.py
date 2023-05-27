@@ -50,7 +50,7 @@ def predict_page(request):
         rfc = joblib.load("predict/data/random_forest.joblib")
 
         import dill
-        with open('predict\data\explainer.pkl', 'rb') as f:
+        with open('predict/data/explainer.pkl', 'rb') as f:
             explainer_lime = dill.load(f)
 
         ttts = datapoint.astype(float)
