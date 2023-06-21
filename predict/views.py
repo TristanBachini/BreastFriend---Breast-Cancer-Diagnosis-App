@@ -26,6 +26,133 @@ def Convert(tup, di):
     return di
 
 
+def rename_features(feat_imp):
+    for key in list(feat_imp):
+        if key == 'radius_mean':
+            feat_imp['mean of radius'] = feat_imp['radius_mean']
+            del feat_imp['radius_mean']
+
+        elif key == 'texture_mean':
+            feat_imp['mean of texture'] = feat_imp['texture_mean']
+            del feat_imp['texture_mean']
+        
+        elif key == 'perimeter_mean':
+            feat_imp['mean of perimeter'] = feat_imp['perimeter_mean']
+            del feat_imp['perimeter_mean']
+        
+        elif key == 'area_mean':
+            feat_imp['mean of area'] = feat_imp['area_mean']
+            del feat_imp['area_mean']
+        
+        elif key == 'smoothness_mean':
+            feat_imp['mean of smoothness'] = feat_imp['smoothness_mean']
+            del feat_imp['smoothness_mean']
+        
+        elif key == 'compactness_mean':
+            feat_imp['mean of compactness'] = feat_imp['compactness_mean']
+            del feat_imp['compactness_mean']
+        
+        elif key == 'concavity_mean':
+            feat_imp['mean of concavity'] = feat_imp['concavity_mean']
+            del feat_imp['concavity_mean']
+        
+        elif key == 'concave_mean':
+            feat_imp['mean of concave'] = feat_imp['concave_mean']
+            del feat_imp['concave_mean']
+        
+        elif key == 'symmetry_mean':
+            feat_imp['mean of symmetry'] = feat_imp['symmetry_mean']
+            del feat_imp['symmetry_mean']
+        
+        elif key == 'fractal_dimension_mean':
+            feat_imp['mean of fractal dimension'] = feat_imp['fractal_dimension_mean']
+            del feat_imp['fractal_dimension_mean']
+
+        elif key == 'radius_se':
+            feat_imp['standard error of radius'] = feat_imp['radius_se']
+            del feat_imp['radius_se']
+        
+        elif key == 'texture_se':
+            feat_imp['standard error of radius'] = feat_imp['radius_se']
+            del feat_imp['radius_se']
+        
+        elif key == 'perimeter_se':
+            feat_imp['standard error of perimeter'] = feat_imp['perimeter_se']
+            del feat_imp['perimeter_se']
+            
+        elif key == 'area_se':
+            feat_imp['standard error of area'] = feat_imp['area_se']
+            del feat_imp['area_se']
+        
+        elif key == 'smoothness_se':
+            feat_imp['standard error of smoothness'] = feat_imp['smoothness_se']
+            del feat_imp['smoothness_se']
+
+        elif key == 'compactness_se':
+            feat_imp['standard error of compactness'] = feat_imp['compactness_se']
+            del feat_imp['compactness_se']
+        
+        elif key == 'concavity_se':
+            feat_imp['standard error of concavity'] = feat_imp['concavity_se']
+            del feat_imp['concavity_se']
+        
+        elif key == 'concave_se':
+            feat_imp['standard error of concave'] = feat_imp['concave_se']
+            del feat_imp['concave_se']
+        
+        elif key == 'symmetry_se':
+            feat_imp['standard error of symmetry'] = feat_imp['symmetry_se']
+            del feat_imp['symmetry_se']
+        
+        elif key == 'fractal_dimension_se':
+            feat_imp['standard error of fractal dimension'] = feat_imp['fractal_dimension_se']
+            del feat_imp['fractal_dimension_se']
+        
+        elif key == 'radius_worst':
+            feat_imp['largest of radius'] = feat_imp['radius_worst']
+            del feat_imp['radius_worst']
+        
+        elif key == 'texture_worst':
+            feat_imp['largest of texture'] = feat_imp['texture_worst']
+            del feat_imp['texture_worst']
+        
+        elif key == 'perimeter_worst':
+            feat_imp['largest of perimeter'] = feat_imp['perimeter_worst']
+            del feat_imp['perimeter_worst']
+        
+        elif key == 'area_worst':
+            feat_imp['largest of area'] = feat_imp['area_worst']
+            del feat_imp['area_worst']
+        
+        elif key == 'smoothness_worst':
+            feat_imp['largest of smoothness'] = feat_imp['smoothness_worst']
+            del feat_imp['smoothness_worst']
+        
+        elif key == 'compactness_worst':
+            feat_imp['largest of compactness'] = feat_imp['compactness_worst']
+            del feat_imp['compactness_worst']
+        
+        elif key == 'concavity_worst':
+            feat_imp['largest of concavity'] = feat_imp['concavity_worst']
+            del feat_imp['concavity_worst']
+        
+        elif key == 'concave_worst':
+            feat_imp['largest of concave'] = feat_imp['concave_worst']
+            del feat_imp['concave_worst']
+        
+        elif key == 'symmetry_worst':
+            feat_imp['largest of symmetry'] = feat_imp['symmetry_worst']
+            del feat_imp['symmetry_worst']
+        
+        elif key == 'fractal_dimension_worst':
+            feat_imp['largest of fractal dimension'] = feat_imp['fractal_dimension_worst']
+            del feat_imp['fractal_dimension_worst']
+        
+
+    
+    return feat_imp
+
+
 
 # Create your views here.
 def homepage(request):
@@ -112,9 +239,12 @@ def predict_page(request):
         response.write(img_buf.getvalue())
 
         if(pred[0]==0):
-            pred = "Negative!"
+            pred = "Benign"
         else:
-            pred = "Positive!"
+            pred = "Malignant"
+
+        feat_imp = rename_features(feat_imp)
+
 
         data = {'accuracy':accuracy,'results':results,'image64':image64,'pred':pred,'feat_imp':feat_imp,'response':response}
 
